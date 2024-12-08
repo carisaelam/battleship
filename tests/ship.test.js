@@ -34,7 +34,7 @@ describe('Hit function', () => {
 
 // isSunk function
 describe('Is Sunk function', () => {
-  it('should change sunkStatus to true if hits >= length', () => {
+  it('should return true if numberOfHits >= length', () => {
     let twoShip = new Ship(2);
     console.log('twoShip', twoShip);
 
@@ -42,5 +42,24 @@ describe('Is Sunk function', () => {
     twoShip.hit();
 
     expect(twoShip.isSunk()).toEqual(true);
+  });
+
+  it('should work for a larger ship - not sunk', () => {
+    let fourShip = new Ship(4);
+    fourShip.hit();
+    fourShip.hit();
+    fourShip.hit();
+
+    expect(fourShip.isSunk()).toEqual(false);
+  });
+
+  it('should work for a larger ship - sunk', () => {
+    let fourShip = new Ship(4);
+    fourShip.hit();
+    fourShip.hit();
+    fourShip.hit();
+    fourShip.hit();
+
+    expect(fourShip.isSunk()).toEqual(true);
   });
 });

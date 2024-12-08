@@ -11,9 +11,6 @@ export class Ship {
   }
 
   isSunk() {
-    if (this.numberOfHits >= this.length) {
-      this.sunkStatus = true;
-    }
-    return this.sunkStatus;
+    return this.numberOfHits >= this.length;
   }
 }
