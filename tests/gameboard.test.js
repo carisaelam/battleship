@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { Gameboard } from '../src/components/gameboard';
+import { Ship } from '../src//components/ship';
 
 // Constructor
 describe('Gameboard class', () => {
@@ -15,12 +16,56 @@ describe('Gameboard class', () => {
 
 // getBoard
 describe('getBoard function', () => {
-  const gameboard = new Gameboard(2);
-  
   it('should return the gameboard', () => {
-    expect(gameboard.getBoard()).toEqual([
+    const twoGameboard = new Gameboard(2);
+
+    expect(twoGameboard.getBoard()).toEqual([
       [null, null],
       [null, null],
     ]);
+  });
+
+  it('should work for larger board', () => {
+    const fourGameboard = new Gameboard(4);
+
+    expect(fourGameboard.getBoard()).toEqual([
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ]);
+  });
+});
+
+// placeShip
+describe('placeShip function', () => {
+  const gameboard = new Gameboard(10);
+  const twoShip = new Ship(2);
+  const threeShip = new Ship(3);
+  const fiveShip = new Ship(5);
+
+  it('should place a two ship at the coordinates', () => {
+    gameboard.placeShip(twoShip, 0, 0, 'horizontal');
+
+    expect(gameboard.board[0][0]).toEqual(twoShip);
+    expect(gameboard.board[0][1]).toEqual(twoShip);
+  });
+
+  it('should place a three ship at the coordinates', () => {
+    gameboard.placeShip(threeShip, 0, 2, 'vertical');
+
+    expect(gameboard.board[0][2]).toEqual(threeShip);
+    expect(gameboard.board[1][2]).toEqual(threeShip);
+    expect(gameboard.board[2][2]).toEqual(threeShip);
+  });
+
+  it('should place a five ship at the coordinates', () => {
+    gameboard.placeShip(fiveShip, 4, 0, 'horizontal');
+
+    expect(gameboard.board[4][0]).toEqual(fiveShip);
+    expect(gameboard.board[4][1]).toEqual(fiveShip);
+    expect(gameboard.board[4][2]).toEqual(fiveShip);
+    expect(gameboard.board[4][3]).toEqual(fiveShip);
+    expect(gameboard.board[4][4]).toEqual(fiveShip);
   });
 });
