@@ -69,3 +69,5 @@ describe('placeShip function', () => {
     expect(gameboard.board[4][4]).toEqual(fiveShip);
   });
 });
+
+// need to add checks for if there is a ship already there or if it will go out of the gameboard
