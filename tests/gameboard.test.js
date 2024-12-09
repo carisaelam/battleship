@@ -77,4 +77,4 @@ describe('placeShip function', () => {
   });
 });
 
-// need to add checks for if there is a ship already there or if it will go out of the gameboard
+// need to add checks for if ship will go outside of gameboard
