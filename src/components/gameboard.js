@@ -23,25 +23,13 @@ export class Gameboard {
   placeShip(ship, x, y, direction) {
     let size = ship.length;
 
-    if (direction === 'horizontal') {
-      for (let i = 0; i < size; i++) {
-        if (this.board[x][y + i] !== null) {
-          throw new Error('Ship already there');
-        }
-      }
+    this.#validateOccupied(ship, x, y, direction);
 
+    if (direction === 'horizontal') {
       for (let i = 0; i < size; i++) {
         this.board[x][y + i] = ship;
       }
-    }
-
-    if (direction === 'vertical') {
-      for (let i = 0; i < size; i++) {
-        if (this.board[x + i][y] !== null) {
-          throw new Error('Ship already there');
-        }
-      }
-
+    } else if (direction === 'vertical') {
       for (let i = 0; i < size; i++) {
         this.board[x + i][y] = ship;
       }
@@ -49,5 +37,23 @@ export class Gameboard {
 
     console.log('placeShip board', this.board);
     return this.board;
+  }
+
+  #validateOccupied(ship, x, y, direction) {
+    let size = ship.length;
+
+    if (direction === 'horizontal') {
+      for (let i = 0; i < size; i++) {
+        if (this.board[x][y + i] !== null) {
+          throw new Error(`Ship already in ${x}${y + i}`);
+        }
+      }
+    } else if (direction === 'vertical') {
+      for (let i = 0; i < size; i++) {
+        if (this.board[x + i][y] !== null) {
+          throw new Error(`Ship already in ${x + i}${y}`);
+        }
+      }
+    }
   }
 }

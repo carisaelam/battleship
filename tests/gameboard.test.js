@@ -72,7 +72,7 @@ describe('placeShip function', () => {
 
   it('should throw an error if space is occupied', () => {
     expect(() => {
-      gameboard.placeShip(twoShip2, 4, 0, 'horizontal');
+      gameboard.placeShip(twoShip2, 3, 4, 'vertical');
     }).toThrowError();
   });
 });
