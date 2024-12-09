@@ -4,6 +4,7 @@ export class Gameboard {
   constructor(size = 10) {
     this.size = size;
     this.board = this.buildBoard(this.size);
+    this.missedShots = [];
   }
 
   buildBoard(size) {
@@ -36,25 +37,37 @@ export class Gameboard {
       }
     }
 
-    // console.log('placeShip board', this.board);
     return this.board;
   }
 
+  receiveAttack(x, y) {
+    if (x < 0 || x >= this.size || y < 0 || y >= this.size) {
+      throw new Error('Attack coordinates out of bounds');
+    }
+
+    if (this.board[x][y] !== null) {
+      let hitShip = this.board[x][y];
+      console.log('hitShip', hitShip);
+      hitShip.hit();
+      return { result: 'hit', ship: hitShip };
+    }
+
+    this.missedShots.push([x, y]);
+    return { result: 'miss', coordinates: [x, y] };
+  }
+
   #validateOccupied(ship, x, y, direction) {
-    console.log('running validateOccupied');
     let size = ship.length;
 
     if (direction === 'horizontal') {
       for (let i = 0; i < size; i++) {
         if (this.board[x][y + i] !== null) {
-          console.error(`Ship already in [${x}][${y + i}]`);
           throw new Error(`Ship already in ${x}${y + i}`);
         }
       }
     } else if (direction === 'vertical') {
       for (let i = 0; i < size; i++) {
         if (this.board[x + i][y] !== null) {
-          console.error(`Ship already in [${x + i}][${y}]`);
           throw new Error(`Ship already in ${x + i}${y}`);
         }
       }
@@ -62,17 +75,14 @@ export class Gameboard {
   }
 
   #validateSpace(ship, x, y, direction) {
-    console.log('running validate space');
     let shipSize = ship.length;
 
     if (direction === 'horizontal') {
       if (y + shipSize > this.size) {
-        console.error('Board not wide enough');
         throw new Error('Board not wide enough');
       }
     } else if (direction === 'vertical') {
       if (x + shipSize > this.size) {
-        console.error('Board not tall enough');
         throw new Error('Board not tall enough');
       }
     }

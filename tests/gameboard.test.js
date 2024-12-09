@@ -44,7 +44,7 @@ describe('placeShip function', () => {
   const threeShip = new Ship(3);
   const fiveShip = new Ship(5);
   const twoShip2 = new Ship(2);
-  const nineShip = new Ship(9)
+  const nineShip = new Ship(9);
 
   it('should place a two ship at the coordinates', () => {
     gameboard.placeShip(twoShip, 0, 0, 'horizontal');
@@ -78,18 +78,36 @@ describe('placeShip function', () => {
   });
 
   it('should throw an error if board not wide enough', () => {
-    console.log('gameboard', gameboard.board)
     expect(() => {
       gameboard.placeShip(nineShip, 3, 3, 'horizontal');
     }).toThrowError('Board not wide enough');
   });
 
   it('should throw an error if board not tall enough', () => {
-    console.log('gameboard', gameboard.board)
     expect(() => {
       gameboard.placeShip(nineShip, 3, 3, 'vertical');
     }).toThrowError('Board not tall enough');
   });
-
 });
 
+//receiveAttack
+describe('receiveAttack function', () => {
+  const gameboard = new Gameboard();
+  const twoShip = new Ship(2);
+
+  gameboard.placeShip(twoShip, 0, 0, 'horizontal');
+
+  it('should return true if attack hit a ship', () => {
+    expect(gameboard.receiveAttack(0, 0)).toEqual({
+      result: 'hit',
+      ship: twoShip,
+    });
+  });
+
+  it('should return false if attack did not hit a ship', () => {
+    expect(gameboard.receiveAttack(1, 0)).toEqual({
+      result: 'miss',
+      coordinates: [1, 0],
+    });
+  });
+});
