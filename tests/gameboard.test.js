@@ -44,6 +44,7 @@ describe('placeShip function', () => {
   const threeShip = new Ship(3);
   const fiveShip = new Ship(5);
   const twoShip2 = new Ship(2);
+  const nineShip = new Ship(9)
 
   it('should place a two ship at the coordinates', () => {
     gameboard.placeShip(twoShip, 0, 0, 'horizontal');
@@ -75,6 +76,20 @@ describe('placeShip function', () => {
       gameboard.placeShip(twoShip2, 3, 4, 'vertical');
     }).toThrowError();
   });
+
+  it('should throw an error if board not wide enough', () => {
+    console.log('gameboard', gameboard.board)
+    expect(() => {
+      gameboard.placeShip(nineShip, 3, 3, 'horizontal');
+    }).toThrowError('Board not wide enough');
+  });
+
+  it('should throw an error if board not tall enough', () => {
+    console.log('gameboard', gameboard.board)
+    expect(() => {
+      gameboard.placeShip(nineShip, 3, 3, 'vertical');
+    }).toThrowError('Board not tall enough');
+  });
+
 });
 
-// need to add checks for if ship will go outside of gameboard
