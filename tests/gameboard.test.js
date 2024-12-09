@@ -43,6 +43,7 @@ describe('placeShip function', () => {
   const twoShip = new Ship(2);
   const threeShip = new Ship(3);
   const fiveShip = new Ship(5);
+  const twoShip2 = new Ship(2);
 
   it('should place a two ship at the coordinates', () => {
     gameboard.placeShip(twoShip, 0, 0, 'horizontal');
@@ -67,6 +68,12 @@ describe('placeShip function', () => {
     expect(gameboard.board[4][2]).toEqual(fiveShip);
     expect(gameboard.board[4][3]).toEqual(fiveShip);
     expect(gameboard.board[4][4]).toEqual(fiveShip);
+  });
+
+  it('should throw an error if space is occupied', () => {
+    expect(() => {
+      gameboard.placeShip(twoShip2, 4, 0, 'horizontal');
+    }).toThrowError();
   });
 });
 

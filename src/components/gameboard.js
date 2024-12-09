@@ -24,15 +24,25 @@ export class Gameboard {
     let size = ship.length;
 
     if (direction === 'horizontal') {
-      this.board[x][y] = ship;
-      for (let i = 1; i < size + 1; i++) {
+      for (let i = 0; i < size; i++) {
+        if (this.board[x][y + i] !== null) {
+          throw new Error('Ship already there');
+        }
+      }
+
+      for (let i = 0; i < size; i++) {
         this.board[x][y + i] = ship;
       }
     }
 
     if (direction === 'vertical') {
-      this.board[x][y] = ship;
-      for (let i = 1; i < size + 1; i++) {
+      for (let i = 0; i < size; i++) {
+        if (this.board[x + i][y] !== null) {
+          throw new Error('Ship already there');
+        }
+      }
+
+      for (let i = 0; i < size; i++) {
         this.board[x + i][y] = ship;
       }
     }
