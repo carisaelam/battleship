@@ -112,24 +112,6 @@ describe('receiveAttack function', () => {
   });
 });
 
-// recordShips
-describe('recordShips function', () => {
-  const gameboard = new Gameboard();
-  const clearGameboard = new Gameboard();
-  const ship1 = new Ship(2);
-  const ship2 = new Ship(3);
-  gameboard.placeShip(ship1, 0, 0, 'horizontal');
-  gameboard.placeShip(ship2, 1, 0, 'vertical');
-
-  it('should be able to list all the ships on the board', () => {
-    expect(gameboard.recordShips()).toEqual([ship1, ship2]);
-  });
-
-  it('should return an empty array for no ships ', () => {
-    expect(clearGameboard.recordShips()).toEqual([]);
-  });
-});
-
 // checkForAllSunk
 describe('checkForAllSunk function', () => {
   const gameboard = new Gameboard();

@@ -1,5 +1,3 @@
-import { Ship } from '/src/components/ship.js';
-
 export class Gameboard {
   constructor(size = 10) {
     this.size = size;
@@ -18,7 +16,6 @@ export class Gameboard {
   }
 
   getBoard() {
-    // console.log(this.board);
     return this.board;
   }
 
@@ -38,7 +35,10 @@ export class Gameboard {
       }
     }
 
-    this.recordShips();
+    if (!this.shipsOnBoard.includes(ship)) {
+      this.shipsOnBoard.push(ship);
+    }
+
     return this.board;
   }
 
@@ -57,30 +57,7 @@ export class Gameboard {
     return { result: 'miss', coordinates: [x, y] };
   }
 
-  recordShips() {
-    for (let row = 0; row < this.size; row++) {
-      for (let col = 0; col < this.size; col++) {
-        let space = this.board[row][col];
-
-        if (space !== null) {
-          let ship = space;
-          if (!this.shipsOnBoard.includes(ship)) {
-            this.shipsOnBoard.push(ship);
-          }
-        }
-      }
-    }
-
-    return this.shipsOnBoard;
-  }
-
   checkForAllSunk() {
-    console.log('running checkForAllSunk()');
-    console.log('this.shipsOnBoard', this.shipsOnBoard);
-    console.log(
-      'all isSunks',
-      this.shipsOnBoard.map((ship) => ship.isSunk())
-    );
     return this.shipsOnBoard.every((ship) => ship.isSunk());
   }
 
