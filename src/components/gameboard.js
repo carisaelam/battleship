@@ -4,6 +4,7 @@ export class Gameboard {
     this.board = this.buildBoard(this.size);
     this.missedShots = [];
     this.shipsOnBoard = [];
+    this.isAllSunk = this.checkForAllSunk();
   }
 
   buildBoard(size) {
@@ -58,6 +59,9 @@ export class Gameboard {
   }
 
   checkForAllSunk() {
+    if (this.shipsOnBoard.length === 0) {
+      return false;
+    }
     return this.shipsOnBoard.every((ship) => ship.isSunk());
   }
 

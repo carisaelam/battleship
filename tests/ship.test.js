@@ -3,8 +3,6 @@ import { Ship } from '../src/components/ship';
 
 const ship = new Ship(1);
 
-console.log('ship: ', ship);
-
 // Constructor
 describe('Constructor', () => {
   it('should exist', () => {
@@ -36,7 +34,6 @@ describe('Hit function', () => {
 describe('Is Sunk function', () => {
   it('should return true if numberOfHits >= length', () => {
     let twoShip = new Ship(2);
-    console.log('twoShip', twoShip);
 
     twoShip.hit();
     twoShip.hit();
