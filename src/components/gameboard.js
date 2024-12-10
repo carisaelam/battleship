@@ -5,6 +5,7 @@ export class Gameboard {
     this.size = size;
     this.board = this.buildBoard(this.size);
     this.missedShots = [];
+    this.shipsOnBoard = [];
   }
 
   buildBoard(size) {
@@ -37,6 +38,7 @@ export class Gameboard {
       }
     }
 
+    this.recordShips();
     return this.board;
   }
 
@@ -47,13 +49,39 @@ export class Gameboard {
 
     if (this.board[x][y] !== null) {
       let hitShip = this.board[x][y];
-      console.log('hitShip', hitShip);
       hitShip.hit();
       return { result: 'hit', ship: hitShip };
     }
 
     this.missedShots.push([x, y]);
     return { result: 'miss', coordinates: [x, y] };
+  }
+
+  recordShips() {
+    for (let row = 0; row < this.size; row++) {
+      for (let col = 0; col < this.size; col++) {
+        let space = this.board[row][col];
+
+        if (space !== null) {
+          let ship = space;
+          if (!this.shipsOnBoard.includes(ship)) {
+            this.shipsOnBoard.push(ship);
+          }
+        }
+      }
+    }
+
+    return this.shipsOnBoard;
+  }
+
+  checkForAllSunk() {
+    console.log('running checkForAllSunk()');
+    console.log('this.shipsOnBoard', this.shipsOnBoard);
+    console.log(
+      'all isSunks',
+      this.shipsOnBoard.map((ship) => ship.isSunk())
+    );
+    return this.shipsOnBoard.every((ship) => ship.isSunk());
   }
 
   #validateOccupied(ship, x, y, direction) {

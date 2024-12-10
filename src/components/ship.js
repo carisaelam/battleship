@@ -11,6 +11,9 @@ export class Ship {
   }
 
   isSunk() {
+    console.log('running isSunk');
+    console.log('this.numberOfHits', this.numberOfHits);
+    console.log('this.length', this.length);
     return this.numberOfHits >= this.length;
   }
 }
