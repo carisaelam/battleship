@@ -14,7 +14,9 @@ player1.gameboard.placeShip(ship2, 0, 2, 'vertical');
 console.log(player1.gameboard.board);
 
 console.log(player1.gameboard.receiveAttack(0, 0));
+console.log(player1.gameboard.receiveAttack(0, 1));
+console.log(player1.gameboard.receiveAttack(0, 2));
+console.log(player1.gameboard.receiveAttack(1, 2));
+console.log(player1.gameboard.receiveAttack(2, 2));
 
-console.log(player1.gameboard.receiveAttack(0, 5));
-
-console.log(player1.gameboard)
+console.log(player1.gameboard);

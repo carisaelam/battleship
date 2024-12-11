@@ -4,7 +4,7 @@ export class Gameboard {
     this.board = this.buildBoard(this.size);
     this.missedShots = [];
     this.shipsOnBoard = [];
-    this.isAllSunk = this.checkForAllSunk();
+    this.isAllSunk = false;
   }
 
   buildBoard(size) {
@@ -51,6 +51,8 @@ export class Gameboard {
     if (this.board[x][y] !== null) {
       let hitShip = this.board[x][y];
       hitShip.hit();
+      hitShip.isSunk();
+      this.checkForAllSunk();
       return { result: 'hit', ship: hitShip };
     }
 
@@ -62,7 +64,11 @@ export class Gameboard {
     if (this.shipsOnBoard.length === 0) {
       return false;
     }
-    return this.shipsOnBoard.every((ship) => ship.isSunk());
+
+    console.log('running checkForAllSunk from gameboard');
+    const allSunk = this.shipsOnBoard.every((ship) => ship.isSunk());
+    this.isAllSunk = allSunk;
+    return allSunk;
   }
 
   #validateOccupied(ship, x, y, direction) {
