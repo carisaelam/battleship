@@ -1,19 +1,9 @@
 export class Gameboard {
   constructor(size = 10) {
     this.size = size;
-    this.board = this.buildBoard(this.size);
+    this.board = this.#buildBoard(this.size);
     this.missedShots = [];
     this.shipsOnBoard = [];
-    this.isAllSunk = false;
-  }
-
-  buildBoard(size) {
-    let board = [];
-
-    for (let row = 0; row < size; row++) {
-      board.push(Array(size).fill(null));
-    }
-    return board;
   }
 
   getBoard() {
@@ -48,12 +38,16 @@ export class Gameboard {
       throw new Error('Attack coordinates out of bounds');
     }
 
-    if (this.board[x][y] !== null) {
-      let hitShip = this.board[x][y];
-      hitShip.hit();
-      hitShip.isSunk();
+    const target = this.board[x][y];
+    if (target !== null) {
+      target.hit();
       this.checkForAllSunk();
-      return { result: 'hit', ship: hitShip };
+      console.log('checkforallsunk', this.checkForAllSunk());
+
+      if (this.checkForAllSunk()) {
+        this.#gameOver();
+      }
+      return { result: 'hit', ship: target };
     }
 
     this.missedShots.push([x, y]);
@@ -65,10 +59,22 @@ export class Gameboard {
       return false;
     }
 
-    console.log('running checkForAllSunk from gameboard');
-    const allSunk = this.shipsOnBoard.every((ship) => ship.isSunk());
-    this.isAllSunk = allSunk;
-    return allSunk;
+    return this.shipsOnBoard.every((ship) => ship.isSunk());
+  }
+
+  // Private methods
+
+  #buildBoard(size) {
+    let board = [];
+
+    for (let row = 0; row < size; row++) {
+      board.push(Array(size).fill(null));
+    }
+    return board;
+  }
+
+  #gameOver() {
+    console.log(`☠️ ALL YOUR SHIPS ARE SUNK! IT'S GAME OVER!`);
   }
 
   #validateOccupied(ship, x, y, direction) {
