@@ -1,8 +1,8 @@
 import { Player } from './components/player';
 import { Ship } from './components/ship';
 
-const ship1 = new Ship(2);
-const ship2 = new Ship(3);
+const ship1 = new Ship(2, 'destroyer');
+const ship2 = new Ship(3, 'submarine');
 
 const player1 = new Player('Carisa', 'real');
 console.log('player1', player1);

@@ -10,8 +10,8 @@ describe('Constructor', () => {
   });
 
   it('should include a type', () => {
-    expect(ship.type).toEqual('battleship')
-  })
+    expect(ship.type).toEqual('battleship');
+  });
 
   it('should include a length', () => {
     expect(ship.length).toBe(1);
@@ -62,5 +62,11 @@ describe('Is Sunk function', () => {
     fourShip.hit();
 
     expect(fourShip.isSunk()).toEqual(true);
+  });
+
+  it('should throw an error for unknown ship type', () => {
+    expect(() => {
+      new Ship(2, 'problem');
+    }).toThrowError('Unknown ship type');
   });
 });

@@ -3,7 +3,24 @@ export class Ship {
     this.length = length;
     this.numberOfHits = numberOfHits;
     this.sunkStatus = sunkStatus;
-    this.type = type 
+    this.type = this.validateType(type);
+  }
+
+  validateType(type) {
+    const validShipTypes = [
+      'carrier',
+      'destroyer',
+      'submarine',
+      'battleship',
+      'cruiser',
+    ];
+
+    if (validShipTypes.includes(type)) {
+      return type;
+    } else {
+      console.error('Unknown ship type: ', type);
+      throw new Error('Unknown ship type');
+    }
   }
 
   hit() {
