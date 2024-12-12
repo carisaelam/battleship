@@ -1,13 +1,17 @@
 import { describe, it, expect } from 'vitest';
 import { Ship } from '../src/components/ship';
 
-const ship = new Ship(1);
+const ship = new Ship(1, 'battleship');
 
 // Constructor
 describe('Constructor', () => {
   it('should exist', () => {
     expect(ship).toBeTruthy;
   });
+
+  it('should include a type', () => {
+    expect(ship.type).toEqual('battleship')
+  })
 
   it('should include a length', () => {
     expect(ship.length).toBe(1);
@@ -33,7 +37,7 @@ describe('Hit function', () => {
 // isSunk function
 describe('Is Sunk function', () => {
   it('should return true if numberOfHits >= length', () => {
-    let twoShip = new Ship(2);
+    let twoShip = new Ship(2, 'destroyer');
 
     twoShip.hit();
     twoShip.hit();
@@ -42,7 +46,7 @@ describe('Is Sunk function', () => {
   });
 
   it('should work for a larger ship - not sunk', () => {
-    let fourShip = new Ship(4);
+    let fourShip = new Ship(4, 'battleship');
     fourShip.hit();
     fourShip.hit();
     fourShip.hit();
@@ -51,7 +55,7 @@ describe('Is Sunk function', () => {
   });
 
   it('should work for a larger ship - sunk', () => {
-    let fourShip = new Ship(4);
+    let fourShip = new Ship(4, 'battleship');
     fourShip.hit();
     fourShip.hit();
     fourShip.hit();

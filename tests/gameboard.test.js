@@ -40,11 +40,11 @@ describe('getBoard function', () => {
 // placeShip
 describe('placeShip function', () => {
   const gameboard = new Gameboard(10);
-  const twoShip = new Ship(2);
-  const threeShip = new Ship(3);
-  const fiveShip = new Ship(5);
-  const twoShip2 = new Ship(2);
-  const nineShip = new Ship(9);
+  const twoShip = new Ship(2, 'destroyer');
+  const threeShip = new Ship(3, 'submarine');
+  const fiveShip = new Ship(5, 'carrier');
+  const twoShip2 = new Ship(2, 'destroyer');
+  const nineShip = new Ship(9, 'carrier');
 
   it('should place a two ship at the coordinates', () => {
     gameboard.placeShip(twoShip, 0, 0, 'horizontal');
@@ -93,7 +93,7 @@ describe('placeShip function', () => {
 //receiveAttack
 describe('receiveAttack function', () => {
   const gameboard = new Gameboard();
-  const twoShip = new Ship(2);
+  const twoShip = new Ship(2, 'destroyer');
 
   gameboard.placeShip(twoShip, 0, 0, 'horizontal');
 
@@ -115,8 +115,8 @@ describe('receiveAttack function', () => {
 // checkForAllSunk
 describe('checkForAllSunk function', () => {
   const gameboard = new Gameboard();
-  const ship1 = new Ship(2);
-  const ship2 = new Ship(2);
+  const ship1 = new Ship(2, 'destroyer');
+  const ship2 = new Ship(2, 'destroyer');
 
   gameboard.placeShip(ship1, 0, 0, 'horizontal');
   gameboard.placeShip(ship2, 1, 0, 'vertical');
