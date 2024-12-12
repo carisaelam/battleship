@@ -15,12 +15,11 @@ export class Ship {
       'cruiser',
     ];
 
-    if (validShipTypes.includes(type)) {
-      return type;
-    } else {
-      console.error('Unknown ship type: ', type);
+    if (!validShipTypes.includes(type)) {
       throw new Error('Unknown ship type');
     }
+
+    return type;
   }
 
   hit() {
