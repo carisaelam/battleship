@@ -20,8 +20,14 @@ describe('getBoard function', () => {
     const twoGameboard = new Gameboard(2);
 
     expect(twoGameboard.getBoard()).toEqual([
-      [null, null],
-      [null, null],
+      [
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+      ],
+      [
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+      ],
     ]);
   });
 
@@ -29,10 +35,30 @@ describe('getBoard function', () => {
     const fourGameboard = new Gameboard(4);
 
     expect(fourGameboard.getBoard()).toEqual([
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
+      [
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+      ],
+      [
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+      ],
+      [
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+      ],
+      [
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+        { ship: null, hit: false },
+      ],
     ]);
   });
 });
@@ -49,26 +75,26 @@ describe('placeShip function', () => {
   it('should place a two ship at the coordinates', () => {
     gameboard.placeShip(twoShip, 0, 0, 'horizontal');
 
-    expect(gameboard.board[0][0]).toEqual(twoShip);
-    expect(gameboard.board[0][1]).toEqual(twoShip);
+    expect(gameboard.board[0][0].ship).toEqual(twoShip);
+    expect(gameboard.board[0][1].ship).toEqual(twoShip);
   });
 
   it('should place a three ship at the coordinates', () => {
     gameboard.placeShip(threeShip, 0, 2, 'vertical');
 
-    expect(gameboard.board[0][2]).toEqual(threeShip);
-    expect(gameboard.board[1][2]).toEqual(threeShip);
-    expect(gameboard.board[2][2]).toEqual(threeShip);
+    expect(gameboard.board[0][2].ship).toEqual(threeShip);
+    expect(gameboard.board[1][2].ship).toEqual(threeShip);
+    expect(gameboard.board[2][2].ship).toEqual(threeShip);
   });
 
   it('should place a five ship at the coordinates', () => {
     gameboard.placeShip(fiveShip, 4, 0, 'horizontal');
 
-    expect(gameboard.board[4][0]).toEqual(fiveShip);
-    expect(gameboard.board[4][1]).toEqual(fiveShip);
-    expect(gameboard.board[4][2]).toEqual(fiveShip);
-    expect(gameboard.board[4][3]).toEqual(fiveShip);
-    expect(gameboard.board[4][4]).toEqual(fiveShip);
+    expect(gameboard.board[4][0].ship).toEqual(fiveShip);
+    expect(gameboard.board[4][1].ship).toEqual(fiveShip);
+    expect(gameboard.board[4][2].ship).toEqual(fiveShip);
+    expect(gameboard.board[4][3].ship).toEqual(fiveShip);
+    expect(gameboard.board[4][4].ship).toEqual(fiveShip);
   });
 
   it('should throw an error if space is occupied', () => {

@@ -1,5 +1,5 @@
 export class Gameboard {
-  constructor(size = 5) {
+  constructor(size = 10) {
     this.size = size;
     this.board = this.#buildBoard(this.size);
     this.missedShots = [];
@@ -18,11 +18,11 @@ export class Gameboard {
 
     if (direction === 'horizontal') {
       for (let i = 0; i < size; i++) {
-        this.board[x][y + i] = ship;
+        this.board[x][y + i] = { ship: ship, hit: false };
       }
     } else if (direction === 'vertical') {
       for (let i = 0; i < size; i++) {
-        this.board[x + i][y] = ship;
+        this.board[x + i][y] = { ship: ship, hit: false };
       }
     }
 
@@ -38,7 +38,7 @@ export class Gameboard {
       throw new Error('Attack coordinates out of bounds');
     }
 
-    const target = this.board[x][y];
+    const target = this.board[x][y].ship;
     if (target !== null) {
       target.hit();
       this.checkForAllSunk();
@@ -70,7 +70,7 @@ export class Gameboard {
     let board = [];
 
     for (let row = 0; row < size; row++) {
-      board.push(Array(size).fill(null));
+      board.push(Array(size).fill({ ship: null, hit: false }));
     }
     return board;
   }
@@ -84,13 +84,13 @@ export class Gameboard {
 
     if (direction === 'horizontal') {
       for (let i = 0; i < size; i++) {
-        if (this.board[x][y + i] !== null) {
+        if (this.board[x][y + i].ship !== null) {
           throw new Error(`Ship already in ${x}${y + i}`);
         }
       }
     } else if (direction === 'vertical') {
       for (let i = 0; i < size; i++) {
-        if (this.board[x + i][y] !== null) {
+        if (this.board[x + i][y].ship !== null) {
           throw new Error(`Ship already in ${x + i}${y}`);
         }
       }
