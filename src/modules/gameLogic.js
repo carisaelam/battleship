@@ -102,7 +102,6 @@ export function takeHumanTurn(human, computer) {
 
   while (!validCoordinates) {
     try {
-      console.log('human taking a turn');
       let x = Number(prompt('Attack on x: '));
       let y = Number(prompt('Attack on y: '));
 
@@ -120,7 +119,6 @@ export function takeComputerTurn(human, computer) {
 
   while (!validCoordinates) {
     try {
-      console.log('computer taking a turn');
       let x = randomNumber(human.gameboard.size);
       let y = randomNumber(human.gameboard.size);
 
