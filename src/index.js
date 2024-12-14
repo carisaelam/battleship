@@ -12,6 +12,12 @@ import {
 
 // DOM Elements
 const startButton = document.querySelector('.start__button');
+const resetButton = document.querySelector('.reset__button');
+
+function resetGame() {
+  document.querySelector('.gameboard__container').innerHTML = '';
+  console.log('Game reset');
+}
 
 function startGame() {
   let [player1, player2] = createPlayers();
@@ -40,4 +46,4 @@ function startGame() {
   }, 1000);
 }
 
-setupEventListeners(startButton, startGame);
+setupEventListeners(startButton, resetButton, startGame, resetGame);

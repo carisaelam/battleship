@@ -1,5 +1,11 @@
-export function setupEventListeners(startButton, startGame) {
+export function setupEventListeners(
+  startButton,
+  resetButton,
+  startGame,
+  resetGame
+) {
   startButton.addEventListener('click', startGame);
+  resetButton.addEventListener('click', resetGame);
 }
 
 const gameboardContainer = document.querySelector('.gameboard__container');
