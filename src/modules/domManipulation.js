@@ -11,8 +11,6 @@ export function setupEventListeners(
 const gameboardContainer = document.querySelector('.gameboard__container');
 
 export function updateBoardDisplay(board) {
-  console.log('updateBoardDisplay running');
-
   gameboardContainer.innerHTML = '';
 
   board.forEach((row) => {
