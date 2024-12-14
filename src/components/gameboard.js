@@ -1,5 +1,5 @@
 export class Gameboard {
-  constructor(size = 10) {
+  constructor(size = 3) {
     this.size = size;
     this.board = this.#buildBoard(this.size);
     this.missedShots = [];
@@ -38,10 +38,12 @@ export class Gameboard {
       throw new Error('Attack coordinates out of bounds');
     }
 
-    const target = this.board[x][y].ship;
+    const targetCell = this.board[x][y];
+    const target = targetCell.ship;
     if (target !== null) {
       target.hit();
       this.checkForAllSunk();
+      targetCell.hit = true;
       console.log('checkforallsunk', this.checkForAllSunk());
 
       if (this.checkForAllSunk()) {

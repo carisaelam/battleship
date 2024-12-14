@@ -14,14 +14,19 @@ export function updateBoardDisplay(board) {
 
     row.forEach((cell) => {
       if (cell !== null) {
-        let ship = cell;
-        if (ship.isSunk()) {
-          rowHTML += '☠️ ';
+        if (cell.ship === null) {
+          rowHTML += `🔲 `;
         } else {
-          rowHTML += `🚢 `;
+          let ship = cell.ship;
+          let hit = cell.hit;
+          if (ship.isSunk()) {
+            rowHTML += '☠️ ';
+          } else if (hit === true) {
+            rowHTML += '🎯 ';
+          } else {
+            rowHTML += `🚢 `;
+          }
         }
-      } else {
-        rowHTML += `🔲 `;
       }
     });
 
