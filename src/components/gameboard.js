@@ -47,10 +47,12 @@ export class Gameboard {
       if (this.checkForAllSunk()) {
         this.#gameOver();
       }
+      console.log({ result: 'hit', ship: target.type });
       return { result: 'hit', ship: target };
     }
 
     this.missedShots.push([x, y]);
+    console.log({ result: 'miss', ship: target });
     return { result: 'miss', coordinates: [x, y] };
   }
 

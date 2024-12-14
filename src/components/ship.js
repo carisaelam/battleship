@@ -24,6 +24,7 @@ export class Ship {
 
   hit() {
     this.numberOfHits = this.numberOfHits + 1;
+    console.log('HIT');
     return this.numberOfHits;
   }
 
