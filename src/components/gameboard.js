@@ -1,5 +1,5 @@
 export class Gameboard {
-  constructor(size = 10) {
+  constructor(size = 5) {
     this.size = size;
     this.board = this.#buildBoard(this.size);
     this.missedShots = [];

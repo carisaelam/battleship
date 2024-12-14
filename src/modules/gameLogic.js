@@ -122,8 +122,15 @@ export function takeComputerTurn(human, computer) {
       let x = randomNumber(human.gameboard.size);
       let y = randomNumber(human.gameboard.size);
 
+      if (computer.guesses.some((coord) => coord.x === x && coord.y === y)) {
+        continue;
+      }
+
+      computer.guesses.push({ x, y });
+
       human.gameboard.receiveAttack(x, y);
       validCoordinates = true;
+
       console.log(`${computer.name} guessed ${x}, ${y}`);
     } catch (error) {
       console.error('Error attacking: ', error);

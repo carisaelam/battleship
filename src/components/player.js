@@ -5,5 +5,6 @@ export class Player {
     this.name = name;
     this.type = type;
     this.gameboard = new Gameboard();
+    this.guesses = [];
   }
 }

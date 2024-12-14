@@ -7,18 +7,26 @@ const gameboardContainer = document.querySelector('.gameboard__container');
 export function updateBoardDisplay(board) {
   console.log('updateBoardDisplay running');
 
-  let boardHTML = '';
+  gameboardContainer.innerHTML = '';
 
   board.forEach((row) => {
+    let rowHTML = '';
+
     row.forEach((cell) => {
       if (cell !== null) {
-        boardHTML += `SHIP `;
+        let ship = cell;
+        if (ship.isSunk()) {
+          rowHTML += '☠️ ';
+        } else {
+          rowHTML += `🚢 `;
+        }
       } else {
-        boardHTML += `NULL `;
+        rowHTML += `🔲 `;
       }
     });
-    boardHTML += '<br></br>'
-  });
 
-  gameboardContainer.innerHTML = boardHTML;
+    let rowElement = document.createElement('p');
+    rowElement.textContent = rowHTML;
+    gameboardContainer.appendChild(rowElement);
+  });
 }
