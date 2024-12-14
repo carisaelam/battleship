@@ -1,33 +1,46 @@
 import { Player } from './components/player';
 import { Ship } from './components/ship';
 
-const ship1 = new Ship(2, 'destroyer');
-const ship2 = new Ship(3, 'submarine');
+// DOM Elements
+const startButton = document.querySelector('.start__button');
 
-const player1 = new Player('Carisa', 'real');
-console.log('player1', player1);
+// Event listeners
+startButton.addEventListener('click', start);
 
+function start() {
+  let [player1, player2] = createPlayers();
+  placeShips(player1);
+}
 
-const ship3 = new Ship(2, 'destroyer')
-const ship4 = new Ship(3, 'submarine')
+function createPlayers() {
+  let name = prompt('Player 1, what is your name? ');
+  const player1 = new Player(name, 'real');
+  const player2 = new Player();
 
-const player2 = new Player();
-console.log('player2 ', player2);
+  console.log('Players created.');
+  console.log('player1', player1);
+  console.log('player1 board', player1.gameboard.board);
+  console.log('player2 ', player2);
+  console.log('player2 board', player2.gameboard.board);
 
-player1.gameboard.placeShip(ship1, 0, 0, 'horizontal');
-player1.gameboard.placeShip(ship2, 0, 2, 'vertical');
+  return [player1, player2];
+}
 
+function placeShips(player) {
+  console.log('starting placeShips. player: ', player);
+  console.log('player board:', player.gameboard);
+  const ships = [
+    new Ship(5, 'carrier'),
+    new Ship(4, 'battleship'),
+    new Ship(3, 'cruiser'),
+    new Ship(3, 'submarine'),
+    new Ship(2, 'destroyer'),
+  ];
+  ships.forEach((ship) => {
+    let x = Number(prompt(`X coord for ${ship.type}`));
+    let y = Number(prompt(`Y coord for ${ship.type}`));
+    return player.gameboard.placeShip(ship, x, y, 'horizontal');
+  });
 
-player2.gameboard.placeShip(ship3, 3, 3, 'vertical')
-player2.gameboard.placeShip(ship4, 3, 4, 'horizontal')
-
-console.log('player1 board', player1.gameboard.board);
-console.log('player2 board', player2.gameboard.board);
-
-console.log(player1.gameboard.receiveAttack(0, 0));
-console.log(player1.gameboard.receiveAttack(0, 1));
-console.log(player1.gameboard.receiveAttack(0, 2));
-console.log(player1.gameboard.receiveAttack(1, 2));
-console.log(player1.gameboard.receiveAttack(2, 2));
-
-console.log(player1.gameboard);
+  console.log(player.gameboard.board);
+}
