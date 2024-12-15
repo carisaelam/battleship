@@ -5,8 +5,7 @@ import { Ship } from '../components/ship';
 import { Gameboard } from '../components/gameboard';
 
 export function createPlayers() {
-  let name = prompt('Player 1, what is your name? ');
-  const player1 = new Player(name, 'real');
+  const player1 = new Player('Player1', 'real');
   const player2 = new Player();
 
   console.log('Players created.');
@@ -35,29 +34,7 @@ export function placeComputerShips(player) {
     new Ship(2, 'destroyer'),
   ];
 
-  ships.forEach((ship) => {
-    let placed = false;
-
-    while (!placed) {
-      try {
-        const x = randomNumber(player.gameboard.size);
-        const y = randomNumber(player.gameboard.size);
-        const direction = randomDirection();
-
-        player.gameboard.placeShip(ship, x, y, direction);
-
-        placed = true;
-        console.log(
-          `${player.name}'s ${ship.type} placed at (${x}, ${y}) ${direction}ly`
-        );
-      } catch (error) {
-        console.error(`Error placing ${ship.type}: `, error);
-      }
-    }
-  });
-
-  console.log(`${player.name} gameboard`, player.gameboard.board);
-  return player.gameboard.board;
+  randomlyPlaceShips(player, ships);
 }
 
 export function placeHumanShips(player) {
@@ -69,69 +46,65 @@ export function placeHumanShips(player) {
     new Ship(2, 'destroyer'),
   ];
 
+  randomlyPlaceShips(player, ships);
+}
+
+export function takeHumanTurn(human, computer) {
+  takeTurn(human, computer, true);
+}
+
+export function takeComputerTurn(human, computer) {
+  takeTurn(computer, human, false);
+}
+
+function randomlyPlaceShips(player, ships) {
   ships.forEach((ship) => {
     let placed = false;
 
     while (!placed) {
-      try {
-        const x = Number(prompt(`X coord for ${ship.type}`));
-        const y = Number(prompt(`Y coord for ${ship.type}`));
-        const direction = prompt(
-          `Direction for ${ship.type} ('horizontal' or 'vertical'):`
-        ).toLowerCase();
+      const x = randomNumber(player.gameboard.size);
+      const y = randomNumber(player.gameboard.size);
+      const direction = randomDirection();
 
-        if (direction !== 'horizontal' && direction !== 'vertical') {
-          throw new Error('Invalid direction!');
-        }
+      try {
         player.gameboard.placeShip(ship, x, y, direction);
         placed = true;
-        console.log(`${ship.type} placed at (${x}, ${y}) ${direction}ly`);
+        console.log(
+          `${player.name}'s ${ship.type} placed at (${x}, ${y}) ${direction}ly`
+        );
       } catch (error) {
         console.error(`Error placing ${ship.type}: `, error);
-        alert(error.message);
       }
     }
   });
 
-  console.log(`${player.name} gameboard`, player.gameboard.board);
-  return player.gameboard.board;
+  console.log(`${player.name}'s gameboard`, player.gameboard.board);
 }
 
-export function takeHumanTurn(human, computer) {
+function takeTurn(player, opponent, isHuman) {
   let validCoordinates = false;
 
   while (!validCoordinates) {
-    try {
-      let x = Number(prompt('Attack on x: '));
-      let y = Number(prompt('Attack on y: '));
+    let x, y;
 
-      computer.gameboard.receiveAttack(x, y);
-      validCoordinates = true;
-      console.log(`${human.name} guessed ${x}, ${y}`);
-    } catch (error) {
-      console.error('Error attacking: ', error);
-    }
-  }
-}
+    if (isHuman) {
+      x = Number(prompt('Attack on x: '));
+      y = Number(prompt('Attack on y: '));
+    } else {
+      x = randomNumber(player.gameboard.size);
+      y = randomNumber(player.gameboard.size);
 
-export function takeComputerTurn(human, computer) {
-  let validCoordinates = false;
-
-  while (!validCoordinates) {
-    try {
-      let x = randomNumber(human.gameboard.size);
-      let y = randomNumber(human.gameboard.size);
-
-      if (computer.guesses.some((coord) => coord.x === x && coord.y === y)) {
+      if (opponent.guesses.some((coord) => coord.x === x && coord.y === y)) {
         continue;
       }
 
-      computer.guesses.push({ x, y });
+      opponent.guesses.push({ x, y });
+    }
 
-      human.gameboard.receiveAttack(x, y);
+    try {
+      opponent.gameboard.receiveAttack(x, y);
       validCoordinates = true;
-
-      console.log(`${computer.name} guessed ${x}, ${y}`);
+      console.log(`${player.name} guessed ${x}, ${y}`);
     } catch (error) {
       console.error('Error attacking: ', error);
     }
