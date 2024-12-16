@@ -1,3 +1,5 @@
+import { getInformationAboutCell } from './gameLogic';
+
 export function setupEventListeners(
   startButton,
   resetButton,
@@ -91,15 +93,3 @@ export function updateOpponentBoardDisplay(board) {
   gridContainer.appendChild(fragment);
   opponentBoardContainer.appendChild(gridContainer);
 }
-
-// Event listeners
-
-opponentBoardContainer.addEventListener('click', (e) => {
-  const cellElement = e.target;
-
-  if (cellElement.classList.contains('gameboard__cell')) {
-    const row = Number(cellElement.getAttribute('data-row'));
-    const col = Number(cellElement.getAttribute('data-col'));
-    console.log(`Player attacked at ${row}, ${col}`);
-  }
-});

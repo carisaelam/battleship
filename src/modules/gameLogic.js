@@ -5,8 +5,8 @@ import { Ship } from '../components/ship';
 import { Gameboard } from '../components/gameboard';
 
 export function createPlayers() {
-  const player1 = new Player('Player1', 'real');
-  const player2 = new Player();
+  const player1 = new Player('HUMAN', 'real');
+  const player2 = new Player('COMPUTER');
 
   console.log('Players created.');
   console.log('player1', player1);
@@ -57,6 +57,11 @@ export function takeComputerTurn(human, computer) {
   takeTurn(computer, human, false);
 }
 
+export function getInformationAboutCell(x, y, player) {
+  console.log('getting info about cell', x, y);
+  console.log(player.gameboard.board[x][y]);
+}
+
 function randomlyPlaceShips(player, ships) {
   ships.forEach((ship) => {
     let placed = false;
@@ -82,32 +87,52 @@ function randomlyPlaceShips(player, ships) {
 }
 
 function takeTurn(player, opponent, isHuman) {
-  let validCoordinates = false;
+  if (isHuman) {
+    const opponentBoardContainer = document.querySelector(
+      '.opponent__container'
+    );
+    opponentBoardContainer.addEventListener(
+      'click',
+      function handleClick(e) {
+        const cellElement = e.target;
 
-  while (!validCoordinates) {
-    let x, y;
+        if (cellElement.classList.contains('gameboard__cell')) {
+          const x = Number(cellElement.getAttribute('data-row'));
+          const y = Number(cellElement.getAttribute('data-col'));
 
-    if (isHuman) {
-      x = Number(prompt('Attack on x: '));
-      y = Number(prompt('Attack on y: '));
-    } else {
-      do {
-        x = randomNumber(player.gameboard.size);
-        y = randomNumber(player.gameboard.size);
-      } while (
-        opponent.guesses.some((coord) => coord.x === x && coord.y === y)
-      );
+          try {
+            const attack = opponent.gameboard.receiveAttack(x, y);
+            console.log(
+              `${player.name} attacked ${x}, ${y} --> ${attack.result}`
+            );
+            getInformationAboutCell(x, y, opponent);
 
-      opponent.guesses.push({ x, y });
-    }
+            opponentBoardContainer.removeEventListener('click', handleClick);
+          } catch (error) {
+            console.error('Invalida attack: ', error);
+          }
+        }
+      },
+      { once: true }
+    );
+  } else {
+    let validCoordinates = false;
 
-    try {
-      const attack = opponent.gameboard.receiveAttack(x, y);
-      validCoordinates = true;
-      console.log(`${player.name} guessed ${x}, ${y} —> ${attack.result}`);
-      
-    } catch (error) {
-      console.error('Error attacking: ', error);
+    while (!validCoordinates) {
+      const x = randomNumber(player.gameboard.size);
+      const y = randomNumber(player.gameboard.size);
+      if (!opponent.guesses.some((coord) => coord.x === x && coord.y === y)) {
+        opponent.guesses.push({ x, y });
+      }
+
+      try {
+        const attack = opponent.gameboard.receiveAttack(x, y);
+        validCoordinates = true;
+        console.log(`${player.name} guessed ${x}, ${y} —> ${attack.result}`);
+        getInformationAboutCell(x, y, opponent);
+      } catch (error) {
+        console.error('Error attacking: ', error);
+      }
     }
   }
 }

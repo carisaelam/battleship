@@ -20,6 +20,8 @@ function startGame() {
   updateOpponentBoardDisplay(player2.gameboard.board)
   takeHumanTurn(player1, player2)
   takeComputerTurn(player1, player2)
+  updatePlayerBoardDisplay(player1.gameboard.board)
+  updateOpponentBoardDisplay(player2.gameboard.board)
 }
 
 startGame();

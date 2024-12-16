@@ -4,7 +4,7 @@ import { Ship } from '../src//components/ship';
 
 // Constructor
 describe('Gameboard class', () => {
-  const gameboard = new Gameboard();
+  const gameboard = new Gameboard(10);
   it('should exist', () => {
     expect(gameboard).toBeTruthy;
   });
