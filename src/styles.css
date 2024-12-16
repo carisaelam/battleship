@@ -128,3 +128,8 @@ button {
   background-color: grey;
   border: 1px solid black;
 }
+
+.opponent__container .gameboard__cell:hover{
+  background-color: yellow;
+  cursor: pointer;
+}
