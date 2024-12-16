@@ -107,3 +107,24 @@ button {
   max-width: fit-content;
   padding: 1rem;
 }
+
+.gameboard__grid {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.gameboard__row {
+  display: contents;
+}
+
+.gameboard__cell {
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+  border: 1px solid black;
+}

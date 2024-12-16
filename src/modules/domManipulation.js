@@ -13,29 +13,59 @@ const gameboardContainer = document.querySelector('.gameboard__container');
 export function updateBoardDisplay(board) {
   gameboardContainer.innerHTML = '';
 
-  board.forEach((row) => {
-    let rowHTML = '';
+  const gridContainer = document.createElement('div');
+  gridContainer.classList.add('gameboard__grid');
+  gridContainer.style.gridTemplateColumns = `repeat(${board[0].length}, 2rem)`;
 
-    row.forEach((cell) => {
+  const fragment = document.createDocumentFragment(); // ease DOM repaints
+
+  board.forEach((row, rowIndex) => {
+    const rowElement = document.createElement('div');
+    rowElement.classList.add('gameboard__row');
+
+    row.forEach((cell, colIndex) => {
+      const cellElement = document.createElement('div');
+      cellElement.classList.add('gameboard__cell');
+
+      let cellContent = '';
+
       if (cell !== null) {
-        if (cell.ship === null) {
-          rowHTML += `🔲 `;
+        const { ship, hit } = cell;
+
+        if (ship === null) {
+          cellContent = '[ ]';
         } else {
-          let ship = cell.ship;
-          let hit = cell.hit;
           if (ship.isSunk()) {
-            rowHTML += '☠️ ';
-          } else if (hit === true) {
-            rowHTML += '🎯 ';
+            cellContent = '☠️';
+          } else if (hit) {
+            cellContent = '🎯';
           } else {
-            rowHTML += `🚢 `;
+            cellContent = '🚢';
           }
         }
       }
+
+      cellElement.textContent = cellContent;
+      cellElement.setAttribute('data-row', rowIndex);
+      cellElement.setAttribute('data-col', colIndex);
+
+      rowElement.appendChild(cellElement);
     });
 
-    let rowElement = document.createElement('p');
-    rowElement.textContent = rowHTML;
-    gameboardContainer.appendChild(rowElement);
+    fragment.appendChild(rowElement);
   });
+
+  gridContainer.appendChild(fragment);
+  gameboardContainer.appendChild(gridContainer);
 }
+
+gameboardContainer.addEventListener('click', (e) => {
+  const cellElement = e.target;
+
+  if (cellElement.classList.contains('gameboard__cell')) {
+    const row = Number(cellElement.getAttribute('data-row'));
+    const col = Number(cellElement.getAttribute('data-col'));
+
+    console.log(`Clicked on ${row}, ${col}`);
+  }
+});

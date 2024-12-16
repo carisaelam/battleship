@@ -91,20 +91,21 @@ function takeTurn(player, opponent, isHuman) {
       x = Number(prompt('Attack on x: '));
       y = Number(prompt('Attack on y: '));
     } else {
-      x = randomNumber(player.gameboard.size);
-      y = randomNumber(player.gameboard.size);
-
-      if (opponent.guesses.some((coord) => coord.x === x && coord.y === y)) {
-        continue;
-      }
+      do {
+        x = randomNumber(player.gameboard.size);
+        y = randomNumber(player.gameboard.size);
+      } while (
+        opponent.guesses.some((coord) => coord.x === x && coord.y === y)
+      );
 
       opponent.guesses.push({ x, y });
     }
 
     try {
-      opponent.gameboard.receiveAttack(x, y);
+      const attack = opponent.gameboard.receiveAttack(x, y);
       validCoordinates = true;
-      console.log(`${player.name} guessed ${x}, ${y}`);
+      console.log(`${player.name} guessed ${x}, ${y} —> ${attack.result}`);
+      
     } catch (error) {
       console.error('Error attacking: ', error);
     }
