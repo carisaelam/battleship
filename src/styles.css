@@ -102,7 +102,7 @@ button {
   max-width: 5rem;
 }
 
-.gameboard__container {
+.gameboard__container, .opponent__container {
   background-color: dodgerblue;
   max-width: fit-content;
   padding: 1rem;

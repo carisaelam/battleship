@@ -10,7 +10,9 @@ export function setupEventListeners(
 
 const gameboardContainer = document.querySelector('.gameboard__container');
 
-export function updateBoardDisplay(board) {
+const opponentBoardContainer = document.querySelector('.opponent__container');
+
+export function updatePlayerBoardDisplay(board) {
   gameboardContainer.innerHTML = '';
 
   const gridContainer = document.createElement('div');
@@ -59,13 +61,45 @@ export function updateBoardDisplay(board) {
   gameboardContainer.appendChild(gridContainer);
 }
 
-gameboardContainer.addEventListener('click', (e) => {
+export function updateOpponentBoardDisplay(board) {
+  opponentBoardContainer.innerHTML = '';
+
+  const gridContainer = document.createElement('div');
+  gridContainer.classList.add('gameboard__grid');
+  gridContainer.style.gridTemplateColumns = `repeat(${board[0].length}, 2rem)`;
+
+  const fragment = document.createDocumentFragment();
+
+  board.forEach((row, rowIndex) => {
+    const rowElement = document.createElement('div');
+    rowElement.classList.add('gameboard__row');
+
+    row.forEach((cell, colIndex) => {
+      const cellElement = document.createElement('div');
+      cellElement.classList.add('gameboard__cell');
+
+      cellElement.textContent = '[ ]';
+      cellElement.setAttribute('data-row', rowIndex);
+      cellElement.setAttribute('data-col', colIndex);
+
+      rowElement.appendChild(cellElement);
+    });
+
+    fragment.appendChild(rowElement);
+  });
+
+  gridContainer.appendChild(fragment);
+  opponentBoardContainer.appendChild(gridContainer);
+}
+
+// Event listeners
+
+opponentBoardContainer.addEventListener('click', (e) => {
   const cellElement = e.target;
 
   if (cellElement.classList.contains('gameboard__cell')) {
     const row = Number(cellElement.getAttribute('data-row'));
     const col = Number(cellElement.getAttribute('data-col'));
-
-    console.log(`Clicked on ${row}, ${col}`);
+    console.log(`Player attacked at ${row}, ${col}`);
   }
 });
