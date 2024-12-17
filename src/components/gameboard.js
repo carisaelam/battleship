@@ -18,11 +18,11 @@ export class Gameboard {
 
     if (direction === 'horizontal') {
       for (let i = 0; i < size; i++) {
-        this.board[x][y + i] = { ship: ship, hit: false };
+        this.board[x][y + i] = { ship: ship, hit: false, attacked: false };
       }
     } else if (direction === 'vertical') {
       for (let i = 0; i < size; i++) {
-        this.board[x + i][y] = { ship: ship, hit: false };
+        this.board[x + i][y] = { ship: ship, hit: false, attacked: false };
       }
     }
 
@@ -72,7 +72,13 @@ export class Gameboard {
     let board = [];
 
     for (let row = 0; row < size; row++) {
-      board.push(Array(size).fill({ ship: null, hit: false }));
+      board.push(
+        Array.from({ length: size }, () => ({
+          ship: null,
+          hit: false,
+          attacked: false,
+        }))
+      );
     }
     return board;
   }

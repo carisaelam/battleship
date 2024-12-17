@@ -21,12 +21,12 @@ describe('getBoard function', () => {
 
     expect(twoGameboard.getBoard()).toEqual([
       [
-        { ship: null, hit: false },
-        { ship: null, hit: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
       ],
       [
-        { ship: null, hit: false },
-        { ship: null, hit: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
       ],
     ]);
   });
@@ -36,28 +36,28 @@ describe('getBoard function', () => {
 
     expect(fourGameboard.getBoard()).toEqual([
       [
-        { ship: null, hit: false },
-        { ship: null, hit: false },
-        { ship: null, hit: false },
-        { ship: null, hit: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
       ],
       [
-        { ship: null, hit: false },
-        { ship: null, hit: false },
-        { ship: null, hit: false },
-        { ship: null, hit: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
       ],
       [
-        { ship: null, hit: false },
-        { ship: null, hit: false },
-        { ship: null, hit: false },
-        { ship: null, hit: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
       ],
       [
-        { ship: null, hit: false },
-        { ship: null, hit: false },
-        { ship: null, hit: false },
-        { ship: null, hit: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
+        { ship: null, hit: false, attacked: false },
       ],
     ]);
   });

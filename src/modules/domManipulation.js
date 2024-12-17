@@ -64,6 +64,7 @@ export function updatePlayerBoardDisplay(board) {
 }
 
 export function updateOpponentBoardDisplay(board) {
+  console.log('running updateOpponent with board: ', board);
   opponentBoardContainer.innerHTML = '';
 
   const gridContainer = document.createElement('div');
@@ -77,12 +78,28 @@ export function updateOpponentBoardDisplay(board) {
     rowElement.classList.add('gameboard__row');
 
     row.forEach((cell, colIndex) => {
+      if (cell.attacked) {
+        console.log(`Cell ${rowIndex}, ${colIndex} marked as attacked`);
+      }
       const cellElement = document.createElement('div');
       cellElement.classList.add('gameboard__cell');
 
       cellElement.textContent = '[ ]';
+
       cellElement.setAttribute('data-row', rowIndex);
       cellElement.setAttribute('data-col', colIndex);
+
+      const cellOnBoard = board[rowIndex][colIndex];
+
+      if (cellOnBoard.attacked === true) {
+        if (cellOnBoard.hit === true) {
+          cellElement.textContent = '🎯';
+        } else {
+          cellElement.textContent = '🔲';
+        }
+      }
+
+      console.log(cellOnBoard);
 
       rowElement.appendChild(cellElement);
     });
