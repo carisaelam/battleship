@@ -1,4 +1,4 @@
-import { getInformationAboutCell } from './gameLogic';
+import { attackCell } from './gameLogic';
 
 export function setupEventListeners(
   startButton,

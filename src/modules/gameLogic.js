@@ -58,7 +58,7 @@ export function takeComputerTurn(human, computer) {
   takeTurn(computer, human, false);
 }
 
-export function getInformationAboutCell(x, y, player) {
+export function attackCell(x, y, player) {
   player.gameboard.board[x][y].attacked = true;
   updateOpponentBoardDisplay(player.gameboard.board);
 }
@@ -107,7 +107,7 @@ function takeTurn(player, opponent, isHuman) {
             console.log(
               `${player.name} attacked ${x}, ${y} --> ${attack.result}`
             );
-            getInformationAboutCell(x, y, opponent);
+            attackCell(x, y, opponent);
 
             opponentBoardContainer.removeEventListener('click', handleClick);
           } catch (error) {
@@ -131,7 +131,7 @@ function takeTurn(player, opponent, isHuman) {
         const attack = opponent.gameboard.receiveAttack(x, y);
         validCoordinates = true;
         console.log(`${player.name} guessed ${x}, ${y} —> ${attack.result}`);
-        getInformationAboutCell(x, y, opponent);
+        attackCell(x, y, opponent);
       } catch (error) {
         console.error('Error attacking: ', error);
       }
