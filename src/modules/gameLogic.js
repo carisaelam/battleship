@@ -59,13 +59,8 @@ export function takeComputerTurn(human, computer) {
 }
 
 export function getInformationAboutCell(x, y, player) {
-  console.log('check for references', player.gameboard.board[0][0] === player.gameboard.board[0][2]); // Should be false
-
-  console.log('getting info about cell', x, y);
-  console.log('player.gameboard.board[x][y]', player.gameboard.board[x][y]);
   player.gameboard.board[x][y].attacked = true;
-  console.log('about to call updateOpponent from getInfo..board', player.gameboard.board)
-  updateOpponentBoardDisplay(player.gameboard.board)
+  updateOpponentBoardDisplay(player.gameboard.board);
 }
 
 function randomlyPlaceShips(player, ships) {
@@ -107,13 +102,13 @@ function takeTurn(player, opponent, isHuman) {
           const y = Number(cellElement.getAttribute('data-col'));
 
           try {
-            console.log('attempting to attack cell: ', x, y)
+            console.log('attempting to attack cell: ', x, y);
             const attack = opponent.gameboard.receiveAttack(x, y);
             console.log(
               `${player.name} attacked ${x}, ${y} --> ${attack.result}`
             );
             getInformationAboutCell(x, y, opponent);
-            
+
             opponentBoardContainer.removeEventListener('click', handleClick);
           } catch (error) {
             console.error('Invalid attack: ', error);

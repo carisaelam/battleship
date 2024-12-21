@@ -14,7 +14,12 @@ const gameboardContainer = document.querySelector('.gameboard__container');
 
 const opponentBoardContainer = document.querySelector('.opponent__container');
 
-export function updatePlayerBoardDisplay(board) {
+export function updateBothBoardDisplays(playerBoard, opponentBoard) {
+  updatePlayerBoardDisplay(playerBoard);
+  updateOpponentBoardDisplay(opponentBoard);
+}
+
+function updatePlayerBoardDisplay(board) {
   gameboardContainer.innerHTML = '';
 
   const gridContainer = document.createElement('div');

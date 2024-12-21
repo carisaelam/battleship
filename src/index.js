@@ -6,7 +6,7 @@ import {
   takeComputerTurn, 
 } from './modules/gameLogic';
 
-import { updatePlayerBoardDisplay, updateOpponentBoardDisplay } from './modules/domManipulation';
+import { updateBothBoardDisplays } from './modules/domManipulation';
 
 // DOM Elements
 const startButton = document.querySelector('.start__button');
@@ -16,8 +16,7 @@ function startGame() {
   placeHumanShips(player1);
   placeComputerShips(player2);
   console.log('Game started');
-  updatePlayerBoardDisplay(player1.gameboard.board)
-  updateOpponentBoardDisplay(player2.gameboard.board)
+  updateBothBoardDisplays(player1.gameboard.board, player2.gameboard.board)
   takeHumanTurn(player1, player2)
   // takeComputerTurn(player1, player2)
   // updatePlayerBoardDisplay(player1.gameboard.board)
