@@ -8,16 +8,16 @@ export function setupEventListeners(
   resetButton.addEventListener('click', resetGame);
 }
 
-const humanBoardContainer = document.querySelector('.gameboard__container');
+const humanBoardContainer = document.querySelector('.human__container');
 
-const computerBoardContainer = document.querySelector('.opponent__container');
+const computerBoardContainer = document.querySelector('.computer__container');
 
 export function updateBothBoardDisplays(humanBoard, computerBoard) {
   updateHumanBoardDisplay(humanBoard);
   updateComputerBoardDisplay(computerBoard);
 }
 
-function updateHumanBoardDisplay(board) {
+function updateHumanBoardDisplay(board, isHumanTurn) {
   humanBoardContainer.innerHTML = '';
 
   const gridContainer = document.createElement('div');
@@ -68,7 +68,7 @@ function updateHumanBoardDisplay(board) {
     fragment.appendChild(rowElement);
   });
 
-  playerHeader.textContent = 'Player Board';
+  playerHeader.textContent = ``;
   gridContainer.appendChild(fragment);
   humanBoardContainer.appendChild(playerHeader);
   humanBoardContainer.appendChild(gridContainer);
@@ -101,6 +101,7 @@ export function updateComputerBoardDisplay(board) {
       cellElement.setAttribute('data-col', colIndex);
 
       const cellOnBoard = board[rowIndex][colIndex];
+      console.log('cellOnBoard, ', cellOnBoard.ship);
 
       if (cellOnBoard.attacked === true) {
         if (cellOnBoard.hit === true) {
@@ -110,7 +111,10 @@ export function updateComputerBoardDisplay(board) {
         }
       }
 
-      // console.log(cellOnBoard);
+      if (cellOnBoard.ship && cellOnBoard.ship.sunkStatus) {
+        cellElement.textContent = '☠️'
+      }
+
 
       rowElement.appendChild(cellElement);
     });

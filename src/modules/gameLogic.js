@@ -31,7 +31,7 @@ export function randomDirection() {
 
 export function placeComputerShips(player) {
   const ships = [
-    // new Ship(5, 'carrier'),
+    new Ship(5, 'carrier'),
     // new Ship(4, 'battleship'),
     // new Ship(3, 'cruiser'),
     new Ship(3, 'submarine'),
@@ -43,7 +43,7 @@ export function placeComputerShips(player) {
 
 export function placeHumanShips(player) {
   const ships = [
-    // new Ship(5, 'carrier'),
+    new Ship(5, 'carrier'),
     // new Ship(4, 'battleship'),
     // new Ship(3, 'cruiser'),
     new Ship(3, 'submarine'),
@@ -103,7 +103,7 @@ export function takeTurn(player, opponent, isHumanTurn) {
     isHumanTurn
   );
   if (isHumanTurn) {
-    document.querySelector('.opponent__container').addEventListener(
+    document.querySelector('.computer__container').addEventListener(
       'click',
       (e) => {
         humanClickHandler(e, player, opponent, isHumanTurn);
@@ -134,7 +134,7 @@ export function handleGameFlow(human, computer) {
       isHumanTurn
     );
     if (isHumanTurn) {
-      document.querySelector('.opponent__container').addEventListener(
+      document.querySelector('.computer__container').addEventListener(
         'click',
         (e) => {
           humanClickHandler(e, currentPlayer, opponent, isHumanTurn);

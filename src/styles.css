@@ -102,10 +102,26 @@ button {
   max-width: 5rem;
 }
 
-.gameboard__container, .opponent__container {
-  background-color: dodgerblue;
+button:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+  transition: 0.05s;
+  background-color: rgb(30, 103, 23);
+
+}
+
+.human__container,
+.computer__container {
   max-width: fit-content;
   padding: 1rem;
+}
+
+.human__container {
+  background-color: dodgerblue;
+}
+
+.computer__container {
+  background-color: rgb(11, 62, 114);
 }
 
 .gameboard__grid {
@@ -129,7 +145,7 @@ button {
   border: 1px solid black;
 }
 
-.opponent__container .gameboard__cell:hover{
+.computer__container .gameboard__cell:hover {
   background-color: yellow;
   cursor: pointer;
 }

@@ -27,6 +27,7 @@ function startGame() {
   handleGameFlow(human, computer);
 }
 
-startGame();
+
+startButton.addEventListener('click', startGame)
 
 // setupEventListeners(startButton, resetButton, startGame, resetGame);
