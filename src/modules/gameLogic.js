@@ -58,17 +58,12 @@ export function takeHumanTurn(human, computer) {
 }
 
 export function takeComputerTurn(human, computer) {
-  console.log('takeComputerTurn: human, computer', human, computer);
   takeTurn(computer, human, false);
 }
 
 export function attackCell(x, y, attacker, defender) {
-  console.log(`Attacking cell ${x}, ${y}`);
-  console.log(`Attacker (player): `, attacker);
-  console.log(`Defender (opponent): `, defender);
+  console.log(`${attacker.name} attacks ${x}, ${y}`);
   defender.gameboard.board[x][y].attacked = true;
-
-  console.log('Updated defender board cell: ', defender.gameboard.board[x][y]);
 }
 
 function randomlyPlaceShips(player, ships) {
@@ -83,9 +78,6 @@ function randomlyPlaceShips(player, ships) {
       try {
         player.gameboard.placeShip(ship, x, y, direction);
         placed = true;
-        console.log(
-          `${player.name}'s ${ship.type} placed at (${x}, ${y}) ${direction}ly`
-        );
       } catch (error) {
         console.error(`Error placing ${ship.type}: `, error);
       }
@@ -96,12 +88,6 @@ function randomlyPlaceShips(player, ships) {
 }
 
 export function takeTurn(player, opponent, isHumanTurn) {
-  console.log(
-    'takeTurn: player, opponent, isHuman',
-    player,
-    opponent,
-    isHumanTurn
-  );
   if (isHumanTurn) {
     document.querySelector('.computer__container').addEventListener(
       'click',
@@ -127,12 +113,6 @@ export function handleGameFlow(human, computer) {
   console.log('handleGameFlow: Game started. Human goes first. ');
 
   function nextTurn(currentPlayer, opponent, isHumanTurn) {
-    console.log(
-      'next Turn starting (currentPlayer, opponent, isHumanTurn): ',
-      currentPlayer,
-      opponent,
-      isHumanTurn
-    );
     if (isHumanTurn) {
       document.querySelector('.computer__container').addEventListener(
         'click',
@@ -141,10 +121,6 @@ export function handleGameFlow(human, computer) {
           if (checkWinCondition(currentPlayer, opponent)) return;
           isHumanTurn = false;
           setTimeout(() => {
-            console.log(
-              'inside setTimeout in handleGameFlow, isHumanTurn',
-              isHumanTurn
-            );
             takeComputerTurn(human, computer);
             isHumanTurn = true;
             nextTurn(human, computer, isHumanTurn);
@@ -163,12 +139,6 @@ export function handleGameFlow(human, computer) {
 }
 
 function humanClickHandler(e, human, computer, isHumanTurn) {
-  console.log(
-    'humanClickHandler(human, computer, isHumanTurn)',
-    human,
-    computer,
-    isHumanTurn
-  );
   const cellElement = e.target;
 
   if (cellElement.classList.contains('gameboard__cell')) {
@@ -176,15 +146,12 @@ function humanClickHandler(e, human, computer, isHumanTurn) {
     const y = Number(cellElement.getAttribute('data-col'));
 
     try {
-      console.log(`${human.name} attacking cell: `, x, y);
       const attack = computer.gameboard.receiveAttack(x, y);
-      console.log(`${human.name} attacked ${x}, ${y} ==> ${attack.result}`);
       attackCell(x, y, human, computer);
-      updateBothBoardDisplays(human.gameboard.board, computer.gameboard.board)
+      updateBothBoardDisplays(human.gameboard.board, computer.gameboard.board);
 
       if (checkWinCondition(human, computer)) return;
       isHumanTurn = false;
-      console.log('ending humanClickHandler');
     } catch (error) {
       console.error('Invalid attack: ', error);
     }
@@ -192,7 +159,6 @@ function humanClickHandler(e, human, computer, isHumanTurn) {
 }
 
 function computerMove(computer, human) {
-  console.log('computerMove: computer, human', computer, human);
   let validCoordinates = false;
 
   while (!validCoordinates) {
@@ -206,9 +172,9 @@ function computerMove(computer, human) {
     try {
       const attack = human.gameboard.receiveAttack(x, y);
       validCoordinates = true;
-      console.log(`${computer.name} guessed ${x}, ${y} ==> ${attack.result}`);
+
       attackCell(x, y, computer, human);
-      updateBothBoardDisplays(human.gameboard.board, computer.gameboard.board)
+      updateBothBoardDisplays(human.gameboard.board, computer.gameboard.board);
 
       if (checkWinCondition(computer, human)) return;
     } catch (error) {

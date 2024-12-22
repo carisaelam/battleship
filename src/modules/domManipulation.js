@@ -39,7 +39,6 @@ function updateHumanBoardDisplay(board, isHumanTurn) {
 
       if (cell !== null) {
         const { ship, hit } = cell;
-        console.log('cell', cell);
 
         if (ship === null) {
           if (cell.attacked) {
@@ -48,7 +47,7 @@ function updateHumanBoardDisplay(board, isHumanTurn) {
             cellContent = '[ ]';
           }
         } else {
-          if (ship.isSunk()) {
+          if (ship.sunkStatus === true) {
             cellContent = '☠️';
           } else if (hit) {
             cellContent = '🎯';
@@ -75,7 +74,6 @@ function updateHumanBoardDisplay(board, isHumanTurn) {
 }
 
 export function updateComputerBoardDisplay(board) {
-  console.log('updateComputerBoard running');
   computerBoardContainer.innerHTML = '';
 
   const gridContainer = document.createElement('div');
@@ -89,9 +87,6 @@ export function updateComputerBoardDisplay(board) {
     rowElement.classList.add('gameboard__row');
 
     row.forEach((cell, colIndex) => {
-      if (cell.attacked) {
-        console.log(`Cell ${rowIndex}, ${colIndex} marked as attacked`);
-      }
       const cellElement = document.createElement('div');
       cellElement.classList.add('gameboard__cell');
 
@@ -101,7 +96,6 @@ export function updateComputerBoardDisplay(board) {
       cellElement.setAttribute('data-col', colIndex);
 
       const cellOnBoard = board[rowIndex][colIndex];
-      console.log('cellOnBoard, ', cellOnBoard.ship);
 
       if (cellOnBoard.attacked === true) {
         if (cellOnBoard.hit === true) {
@@ -112,9 +106,8 @@ export function updateComputerBoardDisplay(board) {
       }
 
       if (cellOnBoard.ship && cellOnBoard.ship.sunkStatus) {
-        cellElement.textContent = '☠️'
+        cellElement.textContent = '☠️';
       }
-
 
       rowElement.appendChild(cellElement);
     });
