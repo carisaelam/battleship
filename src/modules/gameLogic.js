@@ -62,7 +62,6 @@ export function takeComputerTurn(human, computer) {
 }
 
 export function attackCell(x, y, attacker, defender) {
-  console.log(`${attacker.name} attacks ${x}, ${y}`);
   defender.gameboard.board[x][y].attacked = true;
 }
 
@@ -79,7 +78,7 @@ function randomlyPlaceShips(player, ships) {
         player.gameboard.placeShip(ship, x, y, direction);
         placed = true;
       } catch (error) {
-        console.error(`Error placing ${ship.type}: `, error);
+        // console.error(`Error placing ${ship.type}: `, error);
       }
     }
   });
@@ -148,6 +147,11 @@ function humanClickHandler(e, human, computer, isHumanTurn) {
     try {
       const attack = computer.gameboard.receiveAttack(x, y);
       attackCell(x, y, human, computer);
+      console.log(`${human.name} ${attack.result}ed ${x}, ${y}`);
+      console.log(
+        `Computer board at ${x}, ${y}`,
+        computer.gameboard.board[x][y]
+      );
       updateBothBoardDisplays(human.gameboard.board, computer.gameboard.board);
 
       if (checkWinCondition(human, computer)) return;
@@ -174,6 +178,12 @@ function computerMove(computer, human) {
       validCoordinates = true;
 
       attackCell(x, y, computer, human);
+      console.log(`${computer.name} ${attack.result}ed ${x}, ${y}`);
+      console.log(
+        `Human board at ${x}, ${y}`,
+        human.gameboard.board[x][y]
+      );
+
       updateBothBoardDisplays(human.gameboard.board, computer.gameboard.board);
 
       if (checkWinCondition(computer, human)) return;
