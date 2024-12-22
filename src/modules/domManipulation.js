@@ -1,5 +1,3 @@
-import { attackCell } from './gameLogic';
-
 export function setupEventListeners(
   startButton,
   resetButton,
@@ -10,27 +8,29 @@ export function setupEventListeners(
   resetButton.addEventListener('click', resetGame);
 }
 
-const gameboardContainer = document.querySelector('.gameboard__container');
+const humanBoardContainer = document.querySelector('.gameboard__container');
 
-const opponentBoardContainer = document.querySelector('.opponent__container');
+const computerBoardContainer = document.querySelector('.opponent__container');
 
-export function updateBothBoardDisplays(playerBoard, opponentBoard) {
-  updatePlayerBoardDisplay(playerBoard);
-  updateOpponentBoardDisplay(opponentBoard);
+export function updateBothBoardDisplays(humanBoard, computerBoard) {
+  updateHumanBoardDisplay(humanBoard);
+  updateComputerBoardDisplay(computerBoard);
 }
 
-function updatePlayerBoardDisplay(board) {
-  gameboardContainer.innerHTML = '';
+function updateHumanBoardDisplay(board) {
+  humanBoardContainer.innerHTML = '';
 
   const gridContainer = document.createElement('div');
   gridContainer.classList.add('gameboard__grid');
   gridContainer.style.gridTemplateColumns = `repeat(${board[0].length}, 2rem)`;
 
   const fragment = document.createDocumentFragment(); // ease DOM repaints
+  const playerHeader = document.createElement('h2');
 
   board.forEach((row, rowIndex) => {
     const rowElement = document.createElement('div');
     rowElement.classList.add('gameboard__row');
+
 
     row.forEach((cell, colIndex) => {
       const cellElement = document.createElement('div');
@@ -58,19 +58,22 @@ function updatePlayerBoardDisplay(board) {
       cellElement.setAttribute('data-row', rowIndex);
       cellElement.setAttribute('data-col', colIndex);
 
+      
       rowElement.appendChild(cellElement);
     });
-
+    
     fragment.appendChild(rowElement);
   });
-
+  
+  playerHeader.textContent = 'Player Board';
   gridContainer.appendChild(fragment);
-  gameboardContainer.appendChild(gridContainer);
+  humanBoardContainer.appendChild(playerHeader);
+  humanBoardContainer.appendChild(gridContainer);
 }
 
-export function updateOpponentBoardDisplay(board) {
-  console.log('running updateOpponent with board: ', board);
-  opponentBoardContainer.innerHTML = '';
+export function updateComputerBoardDisplay(board) {
+  console.log('updateOpponentBoard running: board')
+  computerBoardContainer.innerHTML = '';
 
   const gridContainer = document.createElement('div');
   gridContainer.classList.add('gameboard__grid');
@@ -104,7 +107,7 @@ export function updateOpponentBoardDisplay(board) {
         }
       }
 
-      console.log(cellOnBoard);
+      // console.log(cellOnBoard);
 
       rowElement.appendChild(cellElement);
     });
@@ -113,5 +116,5 @@ export function updateOpponentBoardDisplay(board) {
   });
 
   gridContainer.appendChild(fragment);
-  opponentBoardContainer.appendChild(gridContainer);
+  computerBoardContainer.appendChild(gridContainer);
 }

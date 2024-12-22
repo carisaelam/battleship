@@ -2,25 +2,29 @@ import {
   createPlayers,
   placeComputerShips,
   placeHumanShips,
-  takeHumanTurn, 
-  takeComputerTurn, 
+  takeHumanTurn,
+  takeComputerTurn,
+  takeTurn,
+  handleGameFlow,
 } from './modules/gameLogic';
 
 import { updateBothBoardDisplays } from './modules/domManipulation';
+import { Gameboard } from './components/gameboard';
 
 // DOM Elements
 const startButton = document.querySelector('.start__button');
 
 function startGame() {
-  let [player1, player2] = createPlayers();
-  placeHumanShips(player1);
-  placeComputerShips(player2);
-  console.log('Game started');
-  updateBothBoardDisplays(player1.gameboard.board, player2.gameboard.board)
-  takeHumanTurn(player1, player2)
-  // takeComputerTurn(player1, player2)
-  // updatePlayerBoardDisplay(player1.gameboard.board)
-  // updateOpponentBoardDisplay(player2.gameboard.board)
+  const [human, computer] = createPlayers();
+  const humanBoard = human.gameboard.board;
+  const computerBoard = computer.gameboard.board;
+
+  placeHumanShips(human);
+  placeComputerShips(computer);
+  updateBothBoardDisplays(humanBoard, computerBoard);
+
+  console.log('Game setup complete');
+  handleGameFlow(human, computer);
 }
 
 startGame();
