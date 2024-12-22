@@ -147,7 +147,7 @@ export function handleGameFlow(human, computer) {
             );
             takeComputerTurn(human, computer);
             isHumanTurn = true;
-            nextTurn(computer, human, isHumanTurn);
+            nextTurn(human, computer, isHumanTurn);
           }, 500);
         },
         { once: true }
@@ -155,7 +155,7 @@ export function handleGameFlow(human, computer) {
     } else {
       computerMove(currentPlayer, opponent);
       isHumanTurn = true;
-      nextTurn(currentPlayer, opponent, isHumanTurn);
+      nextTurn(human, computer, isHumanTurn);
     }
   }
 

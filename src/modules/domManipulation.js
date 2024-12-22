@@ -72,7 +72,7 @@ function updateHumanBoardDisplay(board) {
 }
 
 export function updateComputerBoardDisplay(board) {
-  console.log('updateOpponentBoard running: board')
+  console.log('updateComputerBoard running')
   computerBoardContainer.innerHTML = '';
 
   const gridContainer = document.createElement('div');
