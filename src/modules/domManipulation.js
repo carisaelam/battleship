@@ -44,7 +44,7 @@ function updateHumanBoardDisplay(board, isHumanTurn) {
           if (cell.attacked) {
             cellContent = '🔲';
           } else {
-            cellContent = '[ ]';
+            cellContent = '  ';
           }
         } else {
           if (ship.sunkStatus === true) {
@@ -90,7 +90,7 @@ export function updateComputerBoardDisplay(board) {
       const cellElement = document.createElement('div');
       cellElement.classList.add('gameboard__cell');
 
-      cellElement.textContent = '[ ]';
+      cellElement.textContent = '  ';
 
       cellElement.setAttribute('data-row', rowIndex);
       cellElement.setAttribute('data-col', colIndex);

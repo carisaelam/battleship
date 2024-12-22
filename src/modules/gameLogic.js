@@ -92,7 +92,10 @@ export function takeTurn(player, opponent, isHumanTurn) {
       'click',
       (e) => {
         humanClickHandler(e, player, opponent, isHumanTurn);
-        if (checkWinCondition(player, opponent)) return;
+        if (checkWinCondition(player, opponent)) {
+          console.log(`${currentPlayer.name} WINS`);
+          return;
+        }
         isHumanTurn = false;
         setTimeout(() => {
           takeComputerTurn(opponent, player);
@@ -117,7 +120,10 @@ export function handleGameFlow(human, computer) {
         'click',
         (e) => {
           humanClickHandler(e, currentPlayer, opponent, isHumanTurn);
-          if (checkWinCondition(currentPlayer, opponent)) return;
+          if (checkWinCondition(currentPlayer, opponent)) {
+            console.log(`${currentPlayer.name} WINS`);
+            return;
+          }
           isHumanTurn = false;
           setTimeout(() => {
             takeComputerTurn(human, computer);
@@ -154,7 +160,10 @@ function humanClickHandler(e, human, computer, isHumanTurn) {
       );
       updateBothBoardDisplays(human.gameboard.board, computer.gameboard.board);
 
-      if (checkWinCondition(human, computer)) return;
+      if (checkWinCondition(human, computer)) {
+        console.log('Human WINS');
+        return;
+      }
       isHumanTurn = false;
     } catch (error) {
       console.error('Invalid attack: ', error);
@@ -179,14 +188,14 @@ function computerMove(computer, human) {
 
       attackCell(x, y, computer, human);
       console.log(`${computer.name} ${attack.result}ed ${x}, ${y}`);
-      console.log(
-        `Human board at ${x}, ${y}`,
-        human.gameboard.board[x][y]
-      );
+      console.log(`Human board at ${x}, ${y}`, human.gameboard.board[x][y]);
 
       updateBothBoardDisplays(human.gameboard.board, computer.gameboard.board);
 
-      if (checkWinCondition(computer, human)) return;
+      if (checkWinCondition(computer, human)) {
+        console.log('COMPUTER WINS');
+        return;
+      }
     } catch (error) {
       console.error('Error attacking: ', error);
     }
@@ -194,10 +203,5 @@ function computerMove(computer, human) {
 }
 
 function checkWinCondition(player, opponent) {
-  const opponentAllSunk = opponent.gameboard.checkForAllSunk();
-  if (opponentAllSunk) {
-    alert(`${player.name} wins!`);
-    return true;
-  }
-  return false;
+  return opponent.gameboard.checkForAllSunk();
 }
