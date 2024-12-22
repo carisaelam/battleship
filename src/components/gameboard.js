@@ -39,6 +39,11 @@ export class Gameboard {
     }
 
     const targetCell = this.board[x][y];
+    
+    if (targetCell.attacked) {
+      throw new Error('Already attacked');
+    }
+
     const target = targetCell.ship;
     if (target !== null) {
       target.hit();
