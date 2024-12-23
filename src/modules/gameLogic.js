@@ -118,6 +118,8 @@ export function takeTurn(player, opponent, isHumanTurn) {
 
 export function handleGameFlow(human, computer) {
 
+  document.querySelector('.start__button').textContent = 'RESET'
+
   let isHumanTurn = true;
 
 

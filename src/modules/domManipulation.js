@@ -8,6 +8,8 @@ export function setupEventListeners(
   resetButton.addEventListener('click', resetGame);
 }
 
+const startButton = document.querySelector('.start__button');
+
 const humanBoardContainer = document.querySelector('.human__container');
 
 const computerBoardContainer = document.querySelector('.computer__container');
@@ -21,6 +23,7 @@ export function updateBothBoardDisplays(humanBoard, computerBoard) {
 
 function updateHumanBoardDisplay(board, isHumanTurn) {
   humanBoardContainer.innerHTML = '';
+  humanBoardContainer.removeAttribute('hidden');
 
   const gridContainer = document.createElement('div');
   gridContainer.classList.add('gameboard__grid');
@@ -98,6 +101,7 @@ function updateHumanBoardDisplay(board, isHumanTurn) {
 
 export function updateComputerBoardDisplay(board) {
   computerBoardContainer.innerHTML = '';
+  computerBoardContainer.removeAttribute('hidden');
 
   const gridContainer = document.createElement('div');
   gridContainer.classList.add('gameboard__grid');
