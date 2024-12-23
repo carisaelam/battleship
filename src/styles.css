@@ -129,6 +129,10 @@ button:hover {
   gap: 0.5rem;
 }
 
+.col__labels {
+  display: grid;
+  gap: .5rem;
+}
 .gameboard__row {
   display: contents;
 }

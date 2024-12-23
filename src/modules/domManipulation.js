@@ -78,13 +78,35 @@ export function updateComputerBoardDisplay(board) {
 
   const gridContainer = document.createElement('div');
   gridContainer.classList.add('gameboard__grid');
-  gridContainer.style.gridTemplateColumns = `repeat(${board[0].length}, 2rem)`;
+  gridContainer.style.gridTemplateColumns = `repeat(${board[0].length + 1}, 2rem)`;
+
+  const colLabels = document.createElement('div');
+  colLabels.classList.add('col__labels');
+  colLabels.style.gridTemplateColumns = `repeat(${board[0].length + 1}, 2rem)`;
+
+  const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 
   const fragment = document.createDocumentFragment();
 
+  const blankColLabel = document.createElement('div');
+  blankColLabel.textContent = '  ';
+
+  colLabels.appendChild(blankColLabel);
+
   board.forEach((row, rowIndex) => {
+    const colLabel = document.createElement('div');
+
+    colLabel.textContent = rowIndex + 1;
+
+    colLabels.appendChild(colLabel);
+
     const rowElement = document.createElement('div');
     rowElement.classList.add('gameboard__row');
+
+    const rowLabel = document.createElement('div');
+    rowLabel.classList.add('row__label');
+
+    rowLabel.textContent = alphabet[rowIndex];
 
     row.forEach((cell, colIndex) => {
       const cellElement = document.createElement('div');
@@ -112,9 +134,11 @@ export function updateComputerBoardDisplay(board) {
       rowElement.appendChild(cellElement);
     });
 
+    fragment.appendChild(rowLabel);
     fragment.appendChild(rowElement);
   });
 
   gridContainer.appendChild(fragment);
+  computerBoardContainer.appendChild(colLabels);
   computerBoardContainer.appendChild(gridContainer);
 }
