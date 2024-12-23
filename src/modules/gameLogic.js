@@ -6,6 +6,7 @@ import { Gameboard } from '../components/gameboard';
 import {
   updateBothBoardDisplays,
   updateComputerBoardDisplay,
+  updateConsoleDisplay,
 } from './domManipulation';
 
 export function createPlayers() {
@@ -116,34 +117,38 @@ export function takeTurn(player, opponent, isHumanTurn) {
 }
 
 export function handleGameFlow(human, computer) {
+
   let isHumanTurn = true;
 
-  console.log('handleGameFlow: Game started. Human goes first. ');
 
   function nextTurn(currentPlayer, opponent, isHumanTurn) {
     if (isHumanTurn) {
-      let cells = document.querySelectorAll('.computer__container .gameboard__cell')
-      
-      cells.forEach(cell => {
+      updateConsoleDisplay('It is Human turn');
+
+      let cells = document.querySelectorAll(
+        '.computer__container .gameboard__cell'
+      );
+
+      cells.forEach((cell) => {
         cell.addEventListener(
           'click',
           (e) => {
             humanClickHandler(e, currentPlayer, opponent, isHumanTurn);
             if (checkWinCondition(currentPlayer, opponent)) {
-              console.log(`${currentPlayer.name} WINS`);
+              updateConsoleDisplay(`${currentPlayer.name} WINS`);
               return;
             }
             isHumanTurn = false;
+            updateConsoleDisplay('Computer thinking...')
             setTimeout(() => {
               takeComputerTurn(human, computer);
               isHumanTurn = true;
               nextTurn(human, computer, isHumanTurn);
-            }, 500);
+            }, 2000);
           },
           { once: true }
         );
-      })
-      
+      });
     } else {
       computerMove(currentPlayer, opponent);
       isHumanTurn = true;

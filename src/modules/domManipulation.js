@@ -12,6 +12,8 @@ const humanBoardContainer = document.querySelector('.human__container');
 
 const computerBoardContainer = document.querySelector('.computer__container');
 
+const consoleContainer = document.querySelector('.console__container');
+
 export function updateBothBoardDisplays(humanBoard, computerBoard) {
   updateHumanBoardDisplay(humanBoard);
   updateComputerBoardDisplay(computerBoard);
@@ -162,4 +164,13 @@ export function updateComputerBoardDisplay(board) {
   gridContainer.appendChild(fragment);
   computerBoardContainer.appendChild(colLabels);
   computerBoardContainer.appendChild(gridContainer);
+}
+
+export function updateConsoleDisplay(message) {
+  consoleContainer.innerHTML = '';
+
+  const messageContainer = document.createElement('div');
+  messageContainer.textContent = message;
+
+  consoleContainer.appendChild(messageContainer);
 }

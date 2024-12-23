@@ -8,7 +8,10 @@ import {
   handleGameFlow,
 } from './modules/gameLogic';
 
-import { updateBothBoardDisplays } from './modules/domManipulation';
+import {
+  updateBothBoardDisplays,
+  updateConsoleDisplay,
+} from './modules/domManipulation';
 import { Gameboard } from './components/gameboard';
 
 // DOM Elements
@@ -23,11 +26,9 @@ function startGame() {
   placeComputerShips(computer);
   updateBothBoardDisplays(humanBoard, computerBoard);
 
-  console.log('Game setup complete');
   handleGameFlow(human, computer);
 }
 
-
-startButton.addEventListener('click', startGame)
+startButton.addEventListener('click', startGame);
 
 // setupEventListeners(startButton, resetButton, startGame, resetGame);
