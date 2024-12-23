@@ -32,7 +32,7 @@ export function randomDirection() {
 
 export function placeComputerShips(player) {
   const ships = [
-    new Ship(5, 'carrier'),
+    // new Ship(5, 'carrier'),
     // new Ship(4, 'battleship'),
     // new Ship(3, 'cruiser'),
     new Ship(3, 'submarine'),
@@ -44,7 +44,7 @@ export function placeComputerShips(player) {
 
 export function placeHumanShips(player) {
   const ships = [
-    new Ship(5, 'carrier'),
+    // new Ship(5, 'carrier'),
     // new Ship(4, 'battleship'),
     // new Ship(3, 'cruiser'),
     new Ship(3, 'submarine'),
