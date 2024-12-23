@@ -88,21 +88,27 @@ function randomlyPlaceShips(player, ships) {
 
 export function takeTurn(player, opponent, isHumanTurn) {
   if (isHumanTurn) {
-    document.querySelector('.computer__container').addEventListener(
-      'click',
-      (e) => {
-        humanClickHandler(e, player, opponent, isHumanTurn);
-        if (checkWinCondition(player, opponent)) {
-          console.log(`${currentPlayer.name} WINS`);
-          return;
-        }
-        isHumanTurn = false;
-        setTimeout(() => {
-          takeComputerTurn(opponent, player);
-        }, 500);
-      },
-      { once: true }
+    let cells = document.querySelectorAll(
+      '.computer__container .gameboard__cell'
     );
+
+    cells.forEach((cell) => {
+      cell.addEventListener(
+        'click',
+        (e) => {
+          humanClickHandler(e, player, opponent, isHumanTurn);
+          if (checkWinCondition(player, opponent)) {
+            console.log(`${currentPlayer.name} WINS`);
+            return;
+          }
+          isHumanTurn = false;
+          setTimeout(() => {
+            takeComputerTurn(opponent, player);
+          }, 500);
+        },
+        { once: true }
+      );
+    });
   } else {
     computerMove(player, opponent);
     isHumanTurn = true;
@@ -116,23 +122,28 @@ export function handleGameFlow(human, computer) {
 
   function nextTurn(currentPlayer, opponent, isHumanTurn) {
     if (isHumanTurn) {
-      document.querySelector('.computer__container').addEventListener(
-        'click',
-        (e) => {
-          humanClickHandler(e, currentPlayer, opponent, isHumanTurn);
-          if (checkWinCondition(currentPlayer, opponent)) {
-            console.log(`${currentPlayer.name} WINS`);
-            return;
-          }
-          isHumanTurn = false;
-          setTimeout(() => {
-            takeComputerTurn(human, computer);
-            isHumanTurn = true;
-            nextTurn(human, computer, isHumanTurn);
-          }, 500);
-        },
-        { once: true }
-      );
+      let cells = document.querySelectorAll('.computer__container .gameboard__cell')
+      
+      cells.forEach(cell => {
+        cell.addEventListener(
+          'click',
+          (e) => {
+            humanClickHandler(e, currentPlayer, opponent, isHumanTurn);
+            if (checkWinCondition(currentPlayer, opponent)) {
+              console.log(`${currentPlayer.name} WINS`);
+              return;
+            }
+            isHumanTurn = false;
+            setTimeout(() => {
+              takeComputerTurn(human, computer);
+              isHumanTurn = true;
+              nextTurn(human, computer, isHumanTurn);
+            }, 500);
+          },
+          { once: true }
+        );
+      })
+      
     } else {
       computerMove(currentPlayer, opponent);
       isHumanTurn = true;
