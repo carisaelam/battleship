@@ -125,7 +125,7 @@ export function handleGameFlow(human, computer) {
 
   function nextTurn(currentPlayer, opponent, isHumanTurn) {
     if (isHumanTurn) {
-      updateConsoleDisplay('It is Human turn');
+      updateConsoleDisplay('It\'\s your turn!');
 
       let cells = document.querySelectorAll(
         '.computer__container .gameboard__cell'
@@ -146,7 +146,7 @@ export function handleGameFlow(human, computer) {
               takeComputerTurn(human, computer);
               isHumanTurn = true;
               nextTurn(human, computer, isHumanTurn);
-            }, 2000);
+            }, 1500);
           },
           { once: true }
         );
